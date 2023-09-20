@@ -1,6 +1,8 @@
-import { Avatar, Button, Container } from "@mui/material";
+import { Avatar, Box, Button, Container } from "@mui/material";
 import { useEffect, useState } from "react";
-import Filme from "./components/Filme";
+import Livro from "./components/livro";
+import Header from "./components/Header";
+
 
 
 
@@ -10,7 +12,10 @@ function App() {
     const [ erro, setErro ] = useState();
 
     useEffect(() => {
-        fetch( process.env.REACT_APP_BACKEND + "filmes", {
+
+        const usuario = localStorage.getItem ("usuario");
+
+        fetch( process.env.REACT_APP_BACKEND + "produtos/" + usuario, { 
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -22,13 +27,15 @@ function App() {
 
     function Excluir( evento, id ) {
         evento.preventDefault();
-        fetch( process.env.REACT_APP_BACKEND + "filmes" , {
+
+        fetch( process.env.REACT_APP_BACKEND + "produtos" , {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: id
+                id: id,
+                usuario:localStorage.getItem ("usuario")
             })
         } )
         .then( ( resposta ) => resposta.json() )
@@ -41,7 +48,9 @@ function App() {
 
     return (
         <>
-            <h1>Filmes</h1>
+            <Header />
+           
+            
             <Container sx={{ 
                 display: "flex" ,
                 flexFlow: "row",
@@ -50,7 +59,7 @@ function App() {
             }}>
             { filmes && (
                 filmes.map( (filme, index ) => ( 
-                    <Filme
+                    <Livro
                         imagem={filme.imagem}
                         titulo={filme.titulo}
                         descricao={filme.descricao}

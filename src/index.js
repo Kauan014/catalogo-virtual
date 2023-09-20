@@ -5,47 +5,28 @@ import App from './App';
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import Login from './Login';
 import Cadastro from "./Cadastro";
-import Filmes from './Filmes';
-import EditaFilme from './EditaFilme';
+import Livros from './livros';
+import EditaLivro from './EditaLivro';
+
 
 const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#ff9100',
-      light: '#ffab40',
-      dark: '#f57c00',
-      contrastText: '#7b19ff',
+      main: '#2a3e75',
+      light: '#303a58',
+      dark: '#4663a6',
     },
     secondary: {
-      main: '#7b19ff',
-      light: '#ba8aff',
-      dark: '#6620c5',
-    },
-    text: {
-      primary: '#757575',
-      secondary: '#9e9e9e',
-      hint: '#ffb74d',
-      disabled: '#bdbdbd',
-    },
-    error: {
-      main: '#d50000',
-      contrastText: '#ffffff',
+      main: '#3299e4',
     },
     background: {
-      default: '#a4a4a4',
-    },
-    warning: {
-      main: '#ffc80d',
-    },
-    info: {
-      main: '#0073b3',
+      default: '#ffffff',
     },
     success: {
-      main: '#0ebd3a',
+      main: '#004d64',
     },
-    divider: '#5109b3',
-  }
+  },
 });
 
 const router = createBrowserRouter([
@@ -62,13 +43,14 @@ const router = createBrowserRouter([
     element: <Cadastro />
   },
   {
-    path: "/filmes",
-    element: <Filmes />
+    path: "/livros",
+    element: <Livros />
   },
   {
-    path: "/edicao/:id",
-    element: <EditaFilme />
-  }
+    path: "/livro/:id",
+    element: <EditaLivro />
+  },
+  
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

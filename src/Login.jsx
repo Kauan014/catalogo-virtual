@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Checkbox, Container, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate, json } from 'react-router-dom';
@@ -19,7 +19,6 @@ function Login() {
   useEffect( () => {
 
     if( login ) {
-        localStorage.setItem( "usuario" , JSON.stringify( {email: email } ) );
         setEmail( "" );
         setSenha( "" );
         navigate( "/" );
@@ -46,8 +45,10 @@ function Login() {
     .then( ( json ) => {
 
         if( json.user ) {
+            localStorage.setItem( "usuario", JSON.stringify( json.user._id ));
             setLogin( true );
         } else {
+            localStorage.removeItem( "usuario" );
             setErro( true );
         }
     } )
@@ -70,6 +71,7 @@ function Login() {
         >
             <Typography component="h1" variant='h4'>Entrar</Typography>
             { erro && ( <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>Revise seus dados e tente novamente</Alert> ) }
+            { login &&(<Link href="/header"></Link>)}
             <Box component="form" onSubmit={Autenticar}>
                 <TextField 
                   type="email"
@@ -93,13 +95,13 @@ function Login() {
                     control={ <Checkbox value={lembrar} name="lembrar" onChange={(e) => setLembrar( !lembrar ) } />}
                     label="Lembrar-me"
                 />
-                <Button type="submit" variant="contained" fullWidth sx={ { mt: 2, mb: 2 }} size="large">Login</Button>
+                <Button type="submit" variant="contained" fullWidth sx={ { mt: 2, mb: 2 }} size="large" >Login</Button>
                 <Grid container>
                     <Grid item xs>
                         Esqueci a senha
                     </Grid>
                     <Grid item>
-                        Cadastrar
+                       <Link href="/cadastro">cadastrar</Link>
                     </Grid>
                 </Grid>
             </Box>
